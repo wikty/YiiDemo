@@ -7,6 +7,7 @@ src_version = '2.0.14'  # the default version of Yii
 src_exclude = ['vendor']  # the items'll be excluded from the Yii source
 
 # source files
+web_dir = 'web'
 db_config_file = 'config/db.php'
 redis_config_file = 'config/redis.php'
 web_config_file = 'config/web.php'
@@ -17,6 +18,7 @@ site_controller_file = 'controllers/SiteController.php'
 # the common code for projects
 src_common_path = './src/common'
 dst_common_path = 'common'
+src_files_path = './src/files'
 src_common_params = {
     'controllers': {
         'base': {
@@ -48,6 +50,11 @@ src_common_params = {
         'required': True,
         'src_path': os.path.join(src_common_path, 'Utils.php'),
         'dst_path': os.path.join(dst_common_path, 'Utils.php')
+    },
+    'htaccess': {
+        'required': True,
+        'src_path': os.path.join(src_files_path, '.htaccess'),
+        'dst_path': os.path.join(web_dir, '.htaccess')
     }
 }
 
