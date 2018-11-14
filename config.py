@@ -7,6 +7,7 @@ src_version = '2.0.14'  # the default version of Yii
 src_exclude = ['vendor']  # the items'll be excluded from the Yii source
 
 # source files
+root_dir = ''
 web_dir = 'web'
 db_config_file = 'config/db.php'
 redis_config_file = 'config/redis.php'
@@ -52,9 +53,14 @@ src_common_params = {
         'dst_path': os.path.join(dst_common_path, 'Utils.php')
     },
     'htaccess': {
-        'required': True,
+        'required': True,  # add htaccess for apache
         'src_path': os.path.join(src_files_path, '.htaccess'),
         'dst_path': os.path.join(web_dir, '.htaccess')
+    },
+    'composer': {
+        'required': True,  # install composer for project
+        'src_path': os.path.join(src_files_path, 'composer.phar'),
+        'dst_path': os.path.join(root_dir, 'composer.phar')
     }
 }
 
