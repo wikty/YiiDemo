@@ -85,7 +85,11 @@ components = {
         'required': True,
         # the list of packages want to be installed by composer
         'require': {
+            # Redis Cache, Session and ActiveRecord for the Yii framework
             "yiisoft/yii2-redis": "~2.0.0",
+            # Flexible and feature-complete Redis client for PHP and HHVM
+            # "predis/predis": "~1.1.1",
+
             
             # "bower-asset/bootstrap": "^3.3",
             # "bower-asset/materialize": "^0.97",
