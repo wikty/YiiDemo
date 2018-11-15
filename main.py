@@ -5,7 +5,9 @@ import subprocess
 
 import config
 import create_project
+import deploy_project
 from utils import get_logger, merge_dict
+
 
 
 def run_composer(dst_root):
@@ -83,6 +85,36 @@ def run_create_project(project, description, version):
  install packages for your project'.format(project))
 
 
+def run_deploy_project(project, dev_repo, test_repo, apache, hostname):
+    logger = get_logger()
+    project_repo = os.path.abspath(os.path.join(config.dst_path, project))
+
+    if not os.path.exists(project_repo):
+        logger.error('The project not exists: {}'.format(project_repo))
+        return
+
+    logger.info('Starting deploy the project [{}]'.format(project))
+
+    logger.info('Init the project repo...')
+    message = deploy_project.init_project_repo(project_repo)
+    logger.info(message)
+    logger.info('Project repo init done!')
+
+    logger.info('Init the test repo...')
+    message = deploy_project.init_test_repo(test_repo)
+    logger.info(message)
+    logger.info('Test repo init done!')
+
+    logger.info('Init the dev repo...')
+    message = deploy_project.init_dev_repo(dev_repo, test_repo, project_repo)
+    logger.info(message)
+    logger.info('Dev repo init done!')
+
+    if apache:
+        logger.info(deploy_project.config_virtual_host(hostname, test_repo))
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Create Yii new project.')
     subparsers = parser.add_subparsers(title='Create and Deploy',
@@ -101,21 +133,26 @@ if __name__ == '__main__':
     deploy_parser = subparsers.add_parser('deploy', help='Deploy project.')
     deploy_parser.add_argument('project',
                                help='The name of project.')
-    deploy_parser.add_argument('dev-repo', 
+    deploy_parser.add_argument('dev_repo', 
                                help='The path of development repository.')
-    deploy_parser.add_argument('test-repo', 
+    deploy_parser.add_argument('test_repo', 
                                help='The path of test repository.')
     deploy_parser.add_argument('-a',
                                dest='apache',
                                type=bool,
                                default=True,
                                help='Output the virtual host settings for Apache.')
+    deploy_parser.add_argument('-n',
+                               dest='hostname',
+                               default='localhost',
+                               help='The hostname of virtual host. Use ; to split alias.')
 
     args = parser.parse_args()
     if args.subcmd == 'create':
         run_create_project(args.project, args.description, args.version)
     elif args.subcmd == 'deploy':
-        pass
+        run_deploy_project(args.project, args.dev_repo, args.test_repo,
+            args.apache, args.hostname)
     
     
     
