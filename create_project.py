@@ -227,9 +227,10 @@ def update_composer_component(file, project, description, params={}):
 def update_web_index(file, params={}):
     require_scripts = ''
     if params.get('utils', {}).get('required'):
-        require_scripts = r"require __DIR__ . '/../common/Utils.php';"        
+        require_scripts = r"require __DIR__ . '/../common/Utils.php';"
     cl = CodeLines()
     cl.add_text(tpl(web_index_code, require=require_scripts))
+    cl.save(file)
     return True
 
 
