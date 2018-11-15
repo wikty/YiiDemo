@@ -1,0 +1,32 @@
+{
+    "site": {
+        "required": false
+    },
+    "db": {
+        "required": true,
+        "hostname": "db",
+        "port": 3306,
+        "database": "foo",
+        "username": "root",
+        "password": "",
+        "charset": "utf8"
+    },
+    "redis": {
+        "required": true,
+        "hostname": "redis",
+        "port": 6379,
+        "database": 0,
+        "password": ""
+    },
+    "log": {
+        "required": true,
+        "target": "db",
+        "class": "app\\common\\log\\DbTarget"
+    },
+    "composer": {
+        "required": true,
+        "require": {
+            "yiisoft/yii2-redis": "~2.0.0"
+        }
+    }
+}

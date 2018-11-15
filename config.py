@@ -65,6 +65,9 @@ src_common_params = {
 }
 
 # The components that you want to equip with the new project
+# you can config via components.jsong
+components_file = 'components.json'
+# or you can config via the following dict
 components = {
     'site': {
         'required': False,  # set false to remove the default site controller

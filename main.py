@@ -1,10 +1,11 @@
 import os
+import json
 import argparse
 import subprocess
 
 import config
 import create_project
-from utils import get_logger
+from utils import get_logger, merge_dict
 
 
 def run_composer(dst_root):
@@ -25,6 +26,13 @@ def run_create_project(project, description, version):
     redis_config_file = os.path.join(dst_root, config.redis_config_file)
     composer_config_file = os.path.join(dst_root, config.composer_config_file)
     site_controller_file = os.path.join(dst_root, config.site_controller_file)
+    
+    components_file = config.components_file
+    if os.path.isfile(components_file):
+        data = {}
+        with open(components_file, 'r') as f:
+            data = json.load(f)
+        config.components = merge_dict(config.components, data)
     
     logger.info('Starting create the project [{}]: "{}"'.format(
         project, description))

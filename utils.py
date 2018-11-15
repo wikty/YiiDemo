@@ -95,3 +95,18 @@ def tpl(text, _left_delimiter='{{', _right_delimiter='}}', _ignore_errors=False,
     return re.sub(''.join([
         _left_delimiter, '(.+?)', _right_delimiter
     ]), callback, text)
+
+
+def merge_dict(d1, d2):
+    d = {}
+    k1, k2 = set(d1.keys()), set(d2.keys())
+    shared_keys = set(d1.keys()) & set(d2.keys())
+    for key in (k1|k2):
+        if key not in shared_keys:
+            d[key] = d1[key] if key in d1 else d2[key]
+        else:
+            if isinstance(d1[key], dict) and isinstance(d2[key], dict):
+                d[key] = merge_dict(d1[key], d2[key])
+            else:
+                d[key] = d2[key]
+    return d
