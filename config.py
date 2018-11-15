@@ -72,9 +72,9 @@ components = {
     # make sure you have installed MySQL and run it
     'db': {
         'required': True,
-        'host': 'db',  # change to your db server hostname
+        'hostname': 'db',  # change to your db server hostname
         'port': 3306,  # change to your db server port
-        'dbname': 'foo',  # change to your the name of the database
+        'database': 'foo',  # change to your the name of the database
         'username': 'root',  # change to your username of db
         'password': '',  # change to your password of db
         'charset': 'utf8'

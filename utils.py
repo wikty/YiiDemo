@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import random
 import string
@@ -81,3 +82,16 @@ def get_logger(logger_name='YiiDemo', log_file='running.log'):
     logger.addHandler(fh)
     logger.addHandler(ch)
     return logger
+
+
+def tpl(text, _left_delimiter='{{', _right_delimiter='}}', _ignore_errors=False, 
+    **kwargs):
+    def callback(m):
+        key = m.group(1)
+        if (not _ignore_errors) and (key not in kwargs):
+            raise KeyError('Missing the keyword: {}'.format(key))
+        return str(kwargs.get(key, ''))
+
+    return re.sub(''.join([
+        _left_delimiter, '(.+?)', _right_delimiter
+    ]), callback, text)
