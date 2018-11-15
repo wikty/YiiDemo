@@ -2,6 +2,7 @@ import os
 import shutil
 import random
 import string
+import logging
 
 
 class CodeLines(object):
@@ -61,3 +62,22 @@ def copyfile(src, dst):
     if not os.path.isdir(parent_dir):
         os.makedirs(parent_dir)
     shutil.copyfile(src, dst)
+
+def get_logger(logger_name='YiiDemo', log_file='running.log'):
+    # create logger
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler(log_file)
+    # fh.setLevel(logging.DEBUG)
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    # ch.setLevel(logging.ERROR)
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    # add the handlers to the logger
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+    return logger
