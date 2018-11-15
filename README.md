@@ -44,7 +44,7 @@
 2. 将开发环境的项目推送到测试环境，进行测试
 3. 测试完毕后，再将项目推送到生产环境中
 
-使用本项目的部署功能可以快速创建开发和测试项目，运行命令：`python main.py deploy [project] [dev-repo] [test-repo] -a [apache]`
+使用本项目的部署功能可以快速创建开发和测试项目，运行命令：`python main.py deploy [project] [dev-repo] [test-repo] -a [apache] -n [hostname]`
 
 其中各个参数解释如下：
 
@@ -52,6 +52,7 @@
 * `dev-repo` 指定开发项目的仓库路径。
 * `test-repo` 指定测试项目的仓库路径，注：该路径一般位于 Web 服务器可以访问的目录中。
 * `apache` 指定是否需要生成 Apache 虚拟主机配置信息。
+* `hostname` 指定 Apache 虚拟主机的主机名，注：可以同时指定主机名和别名，用 `;` 来分割开。
 
 创建完成开发和测试项目后，需要自己手动为测试项目配置虚拟主机。以后每当需要将开发项目推送到测试项目时：
 
