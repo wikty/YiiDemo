@@ -374,17 +374,37 @@ def run(project, description, version):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Create Yii new project.')
-    parser.add_argument('project',
-                        help='The name of project.')
-    parser.add_argument('description',
-                        help='The description of project')
-    parser.add_argument('-v', 
-                        dest='version',
-                        default=config.src_version,
-                        help='The Yii version to create project.')
+    subparsers = parser.add_subparsers(title='Create and Deploy',
+                                       dest='subcmd', 
+                                       help="Create and deploy your project.")
+    create_parser = subparsers.add_parser('create', help='Create project.')
+    create_parser.add_argument('project',
+                                help='The name of project.')
+    create_parser.add_argument('description',
+                                help='The description of project.') 
+    create_parser.add_argument('-v', 
+                               dest='version',
+                               default=config.src_version,
+                               help='The Yii source version to create project.')
+    
+    deploy_parser = subparsers.add_parser('deploy', help='Deploy project.')
+    deploy_parser.add_argument('project',
+                               help='The name of project.')
+    deploy_parser.add_argument('dev-repo', 
+                               help='The path of development repository.')
+    deploy_parser.add_argument('test-repo', 
+                               help='The path of test repository.')
+    deploy_parser.add_argument('-a',
+                               dest='apache',
+                               type=bool,
+                               default=True,
+                               help='Output the virtual host settings for Apache.')
 
     args = parser.parse_args()
-    run(args.project, args.description, args.version)
+    if args.subcmd == 'create':
+        run(args.project, args.description, args.version)
+    elif args.subcmd == 'deploy':
+        pass
     
     
     
