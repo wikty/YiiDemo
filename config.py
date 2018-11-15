@@ -24,8 +24,8 @@ src_common_params = {
     'controllers': {
         'base': {
             'required': True,
-            'src_path': os.path.join(src_common_path, 'controllers', 'BaseController.php'),
-            'dst_path': os.path.join(dst_common_path, 'controllers', 'BaseController.php')
+            'src_path': os.path.join(src_common_path, 'controllers', 'BaseApiController.php'),
+            'dst_path': os.path.join(dst_common_path, 'controllers', 'BaseApiController.php')
         }
     },
     'models': {

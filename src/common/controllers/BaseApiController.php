@@ -7,7 +7,7 @@ use yii\web\Controller;
 use app\common\ConstCode;
 
 
-class BaseController extends Controller {
+class BaseApiController extends Controller {
     
     protected $params;  // to hold request arguments
 
